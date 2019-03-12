@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">SmartTracker</string>
+    <string name="action_map">Mappa</string>
+    <string name="action_settings">Impostazioni</string>
+
+    <!-- MainFragment -->
+    <string name="state_location_stopped">Aggiornamenti posizione disattivati</string>
+    <string name="state_location_waiting">Attendo posizione\u2026</string>
+    <string name="state_location_updated">Latitudine: %1$f\nLongitudine: %2$f</string>
+    <string name="state_location_updated_notification">Posizione: %1$f, %2$f</string>
+    <string name="state_location_unknown">Posizione sconosciuta</string>
+
+    <string name="toggle_location_updates">Aggiornamenti posizione</string>
+
+    <string name="location_updates_on">Aggiornamenti posizione attivati</string>
+
+    <!-- SettingsFragment -->
+    <string name="remote_control">Controllo remoto</string>
+    <string name="allow_only_auth_phone">Consenti solo da numero di telefono autorizzato</string>
+    <string name="auth_phone">Numero di telefono</string>
+
+    <string name="activation_messages">Messaggi d\'attivazione</string>
+    <string name="request_location_updates">Richiedi aggiornamenti posizione</string>
+    <string name="request_location_updates_default">START TRACKING</string>
+    <string name="remove_location_updates">Rimuovi aggiornamenti posizione</string>
+    <string name="remove_location_updates_default">STOP TRACKING</string>
+
+    <string name="err_phone_empty">Inserisci un numero di telefono</string>
+    <string name="err_phone_invalid">Inserisci un numero di telefono valido</string>
+
+    <string name="err_request_message_same">Inserisci un messaggio diverso da quello di rimozione aggiornamenti posizione</string>
+    <string name="err_request_message_empty">Inserisci il messaggio di richiesta aggiornamenti posizione</string>
+
+    <string name="err_remove_message_same">Inserisci un messaggio diverso da quello di richiesta aggiornamenti posizione</string>
+    <string name="err_remove_message_empty">Inserisci il messaggio di rimozione aggiornamenti posizione</string>
+
+    <string name="delete_locations">Elimina posizioni</string>
+    <string name="delete_locations_message">Vuoi eliminare definitivamente tutte le posizioni?</string>
+
+    <!-- PermissionsFragment -->
+    <string name="perm_location_rationale">SmartTracker richiede l\'accesso alla tua posizione per funzionare.</string>
+    <string name="perm_sms_rationale">SmartTracker richiede l\'accesso ai tuoi SMS per funzionare.</string>
+    <string name="perm_location_sms_rationale">SmartTracker richiede l\'accesso alla tua posizione e SMS per funzionare.</string>
+
+    <string name="perm_required">Autorizzazione richiesta</string>
+    <string name="perm_location_go_to_settings">SmartTracker non funziona se non consenti l\'accesso alla tua posizione. Attiva le autorizzazioni relative alla posizione nelle impostazioni.</string>
+    <string name="perm_sms_go_to_settings">SmartTracker non funziona se non consenti l\'accesso agli SMS. Attiva le autorizzazioni relative agli SMS nelle impostazioni.</string>
+    <string name="perm_location_sms_go_to_settings">SmartTracker non funziona se non consenti l\'accesso alla tua posizione e SMS. Attiva le autorizzazioni relative alla posizione e SMS nelle impostazioni.</string>
+
+    <plurals name="required_permission_missing">
+        <item quantity="one">Autorizzazione necessaria mancante</item>
+        <item quantity="other">Autorizzazioni necessarie mancanti</item>
+    </plurals>
+
+    <!-- Dialogs -->
+    <string name="exit">Esci</string>
+    <string name="delete">Elimina</string>
+
+    <!-- Notification channel -->
+    <string name="channel_name">Aggiornamenti posizione quando l\'app non è visibile</string>
+    <string name="channel_desc">Utilizzato dalla notifica degli aggiornamenti posizione quando SmartTracker viene eseguito in background.</string>
+
+    <!-- Network errors -->
+    <string name="err_network_no_connection">Connessione assente</string>
+    <string name="err_network_unreachable_server">Impossibile raggiungere il server</string>
+    <string name="err_network_unexpected">Ops! Qualcosa è andato storto. Errore imprevisto.</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="net.ddns.smarttracker.LocationStatus" />
+
+        <variable
+            name="viewModel"
+            type="net.ddns.smarttracker.MainViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:freezesText="true"
+            android:text="@{viewModel.locationStatus}"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <net.ddns.smarttracker.CustomSwitchMaterial
+            android:id="@+id/toggle_location_updates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:checked="@{viewModel.locationStatus.state != LocationStatus.STOPPED}"
+            android:onCheckedChanged="@{(buttonView, isChecked) -> viewModel.onCheckedChanged(context, isChecked)}"
+            android:text="@string/toggle_location_updates"
+            android:textAppearance="?attr/textAppearanceButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:useMaterialThemeColors="true" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

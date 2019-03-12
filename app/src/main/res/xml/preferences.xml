@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/remote_control">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="pref_allow_only_auth_phone"
+            app:title="@string/allow_only_auth_phone" />
+
+        <net.ddns.smarttracker.PhoneNumberEditTextPreference
+            app:isPreferenceVisible="false"
+            app:key="pref_auth_phone"
+            app:title="@string/auth_phone"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/activation_messages">
+
+        <net.ddns.smarttracker.CustomEditTextPreference
+            app:defaultValue="@string/request_location_updates_default"
+            app:key="pref_request_location_updates_message"
+            app:title="@string/request_location_updates"
+            app:useSimpleSummaryProvider="true" />
+
+        <net.ddns.smarttracker.CustomEditTextPreference
+            app:defaultValue="@string/remove_location_updates_default"
+            app:key="pref_remove_location_updates_message"
+            app:title="@string/remove_location_updates"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+
+        <Preference
+            app:key="delete_locations"
+            app:title="@string/delete_locations" />
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
