@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -36,6 +35,7 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
   private static final String KEY_DELETE_LOCATIONS = "delete_locations";
   private static final int EDITTEXT_MAX_LENGTH = 20;
 
+  private Context mAppContext;
   private SwitchPreferenceCompat allowOnlyAuthPhone;
   private PhoneNumberEditTextPreference authPhone;
   private CustomEditTextPreference requestLocationUpdatesMessage;
@@ -45,6 +45,8 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
   @Override
   public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     setPreferencesFromResource(R.xml.preferences, rootKey);
+
+    mAppContext = getContext().getApplicationContext();
 
     allowOnlyAuthPhone = findPreference(KEY_PREF_ALLOW_ONLY_AUTH_PHONE);
     authPhone = findPreference(KEY_PREF_AUTH_PHONE);
@@ -181,11 +183,10 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
                                       public void onResponse(
                                           Call<DeleteLocationsResponse> call,
                                           final Response<DeleteLocationsResponse> response) {
-                                        final MainActivity activity = MainActivity.get();
                                         final CharSequence text =
                                             response.isSuccessful()
                                                 ? response.body().getMessage()
-                                                : activity.getString(
+                                                : mAppContext.getString(
                                                     R.string.err_network_unexpected);
                                         notifyDeleteLocations(text);
                                       }
@@ -193,19 +194,19 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
                                       @Override
                                       public void onFailure(
                                           Call<DeleteLocationsResponse> call, Throwable t) {
-                                        final MainActivity activity = MainActivity.get();
                                         final CharSequence text;
                                         if (t instanceof SocketTimeoutException) {
                                           text =
-                                              activity.getString(
+                                              mAppContext.getString(
                                                   R.string.err_network_unreachable_server);
                                         } else if (t instanceof UnknownHostException) {
                                           text =
-                                              activity.getString(
+                                              mAppContext.getString(
                                                   R.string.err_network_no_connection);
                                         } else {
                                           text =
-                                              activity.getString(R.string.err_network_unexpected);
+                                              mAppContext.getString(
+                                                  R.string.err_network_unexpected);
                                         }
                                         notifyDeleteLocations(text);
                                       }
@@ -230,12 +231,10 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
   }
 
   private void notifyDeleteLocations(CharSequence text) {
-    final View content = MainActivity.getContent();
-    if (content == null) {
-      final Context appContext = MainActivity.get().getApplicationContext();
-      Toast.makeText(appContext, text, Toast.LENGTH_SHORT).show();
+    if (getActivity() == null) {
+      Toast.makeText(mAppContext, text, Toast.LENGTH_SHORT).show();
     } else {
-      Snackbar.make(content, text, Snackbar.LENGTH_LONG).show();
+      Snackbar.make(MainActivity.getContent(), text, Snackbar.LENGTH_LONG).show();
     }
   }
 }
