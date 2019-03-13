@@ -19,7 +19,7 @@
     <string name="allow_only_auth_phone">Consenti solo da numero di telefono autorizzato</string>
     <string name="auth_phone">Numero di telefono</string>
 
-    <string name="activation_messages">Messaggi d\'attivazione</string>
+    <string name="activation_messages">Messaggi di attivazione</string>
     <string name="request_location_updates">Richiedi aggiornamenti posizione</string>
     <string name="request_location_updates_default">START TRACKING</string>
     <string name="remove_location_updates">Rimuovi aggiornamenti posizione</string>
