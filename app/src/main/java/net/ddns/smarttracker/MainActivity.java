@@ -15,17 +15,8 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
-  private static WeakReference<MainActivity> mMainActivity;
   private static WeakReference<View> mContent;
-
-  public static MainActivity get() {
-    return mMainActivity == null ? null : mMainActivity.get();
-  }
-
-  public static void set(MainActivity activity) {
-    mMainActivity = new WeakReference<>(activity);
-  }
-
+  
   public static View getContent() {
     return mContent == null ? null : mContent.get();
   }
@@ -38,18 +29,11 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     setTheme(R.style.AppTheme_NoActionBar);
     super.onCreate(savedInstanceState);
-    set(this);
     setContent(findViewById(android.R.id.content));
     ActivityMainBinding activityMainBinding =
         DataBindingUtil.setContentView(this, R.layout.activity_main);
     setSupportActionBar(activityMainBinding.toolbar);
     NavigationUI.setupWithNavController(
         activityMainBinding.toolbar, Navigation.findNavController(this, R.id.nav_host_fragment));
-  }
-
-  @Override
-  protected void onDestroy() {
-    set(null);
-    super.onDestroy();
   }
 }
