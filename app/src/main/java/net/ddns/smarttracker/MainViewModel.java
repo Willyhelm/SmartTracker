@@ -18,7 +18,7 @@ public class MainViewModel extends ViewModel {
   }
 
   public void onCheckedChanged(Context context, boolean isChecked) {
-    Context appContext = context.getApplicationContext();
+    final Context appContext = context.getApplicationContext();
     if (isChecked) {
       ServiceManager.getInstance(appContext).requestLocationUpdates();
     } else {

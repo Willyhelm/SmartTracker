@@ -42,9 +42,10 @@ public class PermissionFragment extends Fragment
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    Drawable exit = ContextCompat.getDrawable(getContext(), R.drawable.launch_screen);
-    ColorDrawable enter = new ColorDrawable(-1);
-    TransitionDrawable transitionDrawable = new TransitionDrawable(new Drawable[] {exit, enter});
+    final Drawable exit = ContextCompat.getDrawable(getContext(), R.drawable.launch_screen);
+    final ColorDrawable enter = new ColorDrawable(-1);
+    final TransitionDrawable transitionDrawable =
+        new TransitionDrawable(new Drawable[] {exit, enter});
 
     getActivity().getWindow().setBackgroundDrawable(transitionDrawable);
     getAppBarLayout().setAlpha(0.0f);
@@ -128,7 +129,7 @@ public class PermissionFragment extends Fragment
   }
 
   private void onPermissionGranted() {
-    int duration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+    final int duration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
     NavHostFragment.findNavController(this)
         .navigate(R.id.action_permissionFragment_to_mainFragment);
@@ -160,7 +161,7 @@ public class PermissionFragment extends Fragment
   }
 
   private CharSequence getToastText() {
-    Resources resources = getResources();
+    final Resources resources = getResources();
     return mPermissionState.isLocationPermissionPermanentlyDenied()
             && mPermissionState.isSmsPermissionPermanentlyDenied()
         ? resources.getQuantityString(R.plurals.required_permission_missing, 2)

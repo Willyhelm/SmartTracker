@@ -1,5 +1,6 @@
 package net.ddns.smarttracker;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -63,6 +64,7 @@ public class LocationUpdatesService extends Service implements LifecycleObserver
     mServiceManager = ServiceManager.getInstance(getApplicationContext());
   }
 
+  @SuppressLint("MissingPermission")
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
     super.onStartCommand(intent, flags, startId);
@@ -113,7 +115,7 @@ public class LocationUpdatesService extends Service implements LifecycleObserver
         new LocationCallback() {
           @Override
           public void onLocationResult(LocationResult locationResult) {
-            Location location = locationResult.getLastLocation();
+            final Location location = locationResult.getLastLocation();
             mServiceManager.updateLocation(location);
             if (!mForeground) mNotificationManager.notify(NOTIFICATION_ID, getNotification());
           }
@@ -129,15 +131,16 @@ public class LocationUpdatesService extends Service implements LifecycleObserver
   }
 
   private Notification getNotification() {
-    Intent activityIntent =
+    final Intent activityIntent =
         new Intent(this, MainActivity.class)
             .setAction(Intent.ACTION_MAIN)
             .addCategory(Intent.CATEGORY_LAUNCHER)
             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-    PendingIntent activityPendingIntent = PendingIntent.getActivity(this, 0, activityIntent, 0);
+    final PendingIntent activityPendingIntent =
+        PendingIntent.getActivity(this, 0, activityIntent, 0);
 
-    Intent stopIntent = new Intent(this, LocationUpdatesService.class).setAction(ACTION_STOP);
-    PendingIntent stopPendingIntent = PendingIntent.getService(this, 0, stopIntent, 0);
+    final Intent stopIntent = new Intent(this, LocationUpdatesService.class).setAction(ACTION_STOP);
+    final PendingIntent stopPendingIntent = PendingIntent.getService(this, 0, stopIntent, 0);
 
     CharSequence contentText = "";
     switch (mLocationStatus.getValue().getState()) {
@@ -154,7 +157,7 @@ public class LocationUpdatesService extends Service implements LifecycleObserver
         break;
     }
 
-    NotificationCompat.Builder builder =
+    final NotificationCompat.Builder builder =
         new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
             .addAction(
                 R.drawable.ic_action_close,

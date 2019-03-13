@@ -58,7 +58,7 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
     initRemoveLocationUpdatesMessage();
     initDeleteLocations();
 
-    maybeShowAuthPhone(allowOnlyAuthPhone.isChecked());
+    maybeShowAuthPhone();
   }
 
   private void initAllowOnlySelectedPhone() {
@@ -119,7 +119,7 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
         new CustomEditTextPreference.Validator() {
           @Override
           public boolean isTextValid(String text) {
-            EditText editText = requestLocationUpdatesMessage.getEditText();
+            final EditText editText = requestLocationUpdatesMessage.getEditText();
             if (text.trim().equals(removeLocationUpdatesMessage.getText())) {
               editText.setError(getString(R.string.err_request_message_same));
               return false;
@@ -145,7 +145,7 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
         new CustomEditTextPreference.Validator() {
           @Override
           public boolean isTextValid(String text) {
-            EditText editText = removeLocationUpdatesMessage.getEditText();
+            final EditText editText = removeLocationUpdatesMessage.getEditText();
             if (text.trim().equals(requestLocationUpdatesMessage.getText())) {
               editText.setError(getString(R.string.err_remove_message_same));
               return false;
@@ -163,7 +163,7 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
         new Preference.OnPreferenceClickListener() {
           @Override
           public boolean onPreferenceClick(Preference preference) {
-            MaterialAlertDialogBuilder builder =
+            final MaterialAlertDialogBuilder builder =
                 new MaterialAlertDialogBuilder(getActivity())
                     .setTitle(R.string.delete_locations)
                     .setMessage(R.string.delete_locations_message)
@@ -219,8 +219,8 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
         });
   }
 
-  private void maybeShowAuthPhone(boolean isChecked) {
-    authPhone.setVisible(isChecked);
+  private void maybeShowAuthPhone() {
+    authPhone.setVisible(allowOnlyAuthPhone.isChecked());
   }
 
   private void customizeEditText(EditText editText) {
@@ -230,9 +230,9 @@ public class SettingsFragment extends CustomPreferenceFragmentCompat {
   }
 
   private void notifyDeleteLocations(CharSequence text) {
-    View content = MainActivity.getContent();
+    final View content = MainActivity.getContent();
     if (content == null) {
-      Context appContext = MainActivity.get().getApplicationContext();
+      final Context appContext = MainActivity.get().getApplicationContext();
       Toast.makeText(appContext, text, Toast.LENGTH_SHORT).show();
     } else {
       Snackbar.make(content, text, Snackbar.LENGTH_LONG).show();

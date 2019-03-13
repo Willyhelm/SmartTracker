@@ -10,7 +10,7 @@ public abstract class CustomPreferenceFragmentCompat extends PreferenceFragmentC
 
   @Override
   public void onDisplayPreferenceDialog(Preference preference) {
-    DialogFragment f;
+    final DialogFragment f;
     if (preference instanceof CustomEditTextPreference) {
       f =
           CustomEditTextPreference.CustomEditTextPreferenceDialogFragment.newInstance(

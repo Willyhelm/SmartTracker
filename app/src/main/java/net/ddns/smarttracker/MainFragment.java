@@ -32,17 +32,19 @@ public class MainFragment extends Fragment {
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    FragmentMainBinding fragmentMainBinding =
-        FragmentMainBinding.inflate(inflater, container, false);
-    fragmentMainBinding.setLifecycleOwner(this);
-    MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-    fragmentMainBinding.setViewModel(mainViewModel);
-    setHasOptionsMenu(true);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
         && PermissionState.getInstance(getActivity()).get() != PermissionState.GRANTED) {
       NavHostFragment.findNavController(this)
           .navigate(R.id.action_mainFragment_to_permissionFragment);
+      return null;
     }
+    final FragmentMainBinding fragmentMainBinding =
+        FragmentMainBinding.inflate(inflater, container, false);
+    fragmentMainBinding.setLifecycleOwner(this);
+    final MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+    fragmentMainBinding.setViewModel(mainViewModel);
+    setHasOptionsMenu(true);
+
     return fragmentMainBinding.getRoot();
   }
 
@@ -68,9 +70,9 @@ public class MainFragment extends Fragment {
   }
 
   private void openMap() {
-    Context context = getContext();
-    Context appContext = context.getApplicationContext();
-    CustomTabsIntent customTabsIntent =
+    final Context context = getContext();
+    final Context appContext = context.getApplicationContext();
+    final CustomTabsIntent customTabsIntent =
         new CustomTabsIntent.Builder()
             .setCloseButtonIcon(
                 BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back))

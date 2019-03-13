@@ -16,11 +16,13 @@ public class ServiceManager {
   private static ServiceManager sInstance;
   private final Context mAppContext;
   private final Repository mRepository;
+  private final Intent mServiceIntent;
   private boolean mRequestingLocationUpdates;
 
   private ServiceManager(Context context) {
     mAppContext = context;
     mRepository = Repository.getInstance();
+    mServiceIntent = new Intent(mAppContext, LocationUpdatesService.class);
   }
 
   public static ServiceManager getInstance(Context appContext) {
@@ -34,9 +36,7 @@ public class ServiceManager {
 
   public void requestLocationUpdates() {
     if (!mRequestingLocationUpdates) {
-      mAppContext.startService(
-          new Intent(mAppContext, LocationUpdatesService.class)
-              .setAction(LocationUpdatesService.ACTION_START));
+      mAppContext.startService(mServiceIntent.setAction(LocationUpdatesService.ACTION_START));
       mRequestingLocationUpdates = true;
       mRepository.setLocationStatus(LocationStatus.waiting());
     }
@@ -44,7 +44,7 @@ public class ServiceManager {
 
   public void removeLocationUpdates() {
     if (mRequestingLocationUpdates) {
-      mAppContext.stopService(new Intent(mAppContext, LocationUpdatesService.class));
+      mAppContext.stopService(mServiceIntent.setAction(null));
       mRequestingLocationUpdates = false;
       mRepository.setLocationStatus(LocationStatus.stopped());
     }
@@ -65,11 +65,11 @@ public class ServiceManager {
   }
 
   private void uploadLocation(Location location) {
-    String latlng = location.getLatitude() + "," + location.getLongitude();
-    Data inputData = new Data.Builder().putString(UploadWorker.KEY_LATLNG, latlng).build();
-    Constraints constraints =
+    final String latlng = location.getLatitude() + "," + location.getLongitude();
+    final Data inputData = new Data.Builder().putString(UploadWorker.KEY_LATLNG, latlng).build();
+    final Constraints constraints =
         new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
-    OneTimeWorkRequest workRequest =
+    final OneTimeWorkRequest workRequest =
         new OneTimeWorkRequest.Builder(UploadWorker.class)
             .setConstraints(constraints)
             .setInputData(inputData)

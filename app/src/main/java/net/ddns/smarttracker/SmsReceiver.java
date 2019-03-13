@@ -20,13 +20,13 @@ public class SmsReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     mAppContext = context.getApplicationContext();
-    Bundle bundle = intent.getExtras();
-    String format = bundle.getString("format");
-    Object[] pdus = (Object[]) bundle.get("pdus");
-    SmsMessage[] smsMessage;
-    StringBuilder stringBuilder = new StringBuilder();
-    String message;
-    String phone;
+    final Bundle bundle = intent.getExtras();
+    final String format = bundle.getString("format");
+    final Object[] pdus = (Object[]) bundle.get("pdus");
+    final SmsMessage[] smsMessage;
+    final StringBuilder stringBuilder = new StringBuilder();
+    final String message;
+    final String phone;
     if (pdus != null) {
       smsMessage = new SmsMessage[pdus.length];
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -63,11 +63,13 @@ public class SmsReceiver extends BroadcastReceiver {
   }
 
   private boolean isSameNumber(CharSequence firstNumber, CharSequence secondNumber) {
-    PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
-    String defaultRegion = CountryDetector.getInstance(mAppContext).getCurrentCountryIso();
+    final PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+    final String defaultRegion = CountryDetector.getInstance(mAppContext).getCurrentCountryIso();
     try {
-      Phonenumber.PhoneNumber firstNumberIn = phoneNumberUtil.parse(firstNumber, defaultRegion);
-      Phonenumber.PhoneNumber secondNumberIn = phoneNumberUtil.parse(secondNumber, defaultRegion);
+      final Phonenumber.PhoneNumber firstNumberIn =
+          phoneNumberUtil.parse(firstNumber, defaultRegion);
+      final Phonenumber.PhoneNumber secondNumberIn =
+          phoneNumberUtil.parse(secondNumber, defaultRegion);
       return phoneNumberUtil.isNumberMatch(firstNumberIn, secondNumberIn)
           == PhoneNumberUtil.MatchType.EXACT_MATCH;
     } catch (NumberParseException e) {
