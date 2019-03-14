@@ -16,7 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
 
   private static WeakReference<View> mContent;
-  
+
   public static View getContent() {
     return mContent == null ? null : mContent.get();
   }
